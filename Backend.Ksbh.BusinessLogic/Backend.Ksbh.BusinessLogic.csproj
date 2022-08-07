@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Backend.Ksbh.Domain\Backend.Ksbh.Domain.csproj" />
+    <ProjectReference Include="..\Backend.Ksbh.Repository\Backend.Ksbh.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
