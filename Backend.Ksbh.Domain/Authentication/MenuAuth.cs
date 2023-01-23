@@ -15,4 +15,14 @@ namespace Backend.Ksbh.Domain.Authentication
         public int nMenuPadre { get; set; }
         public int totalHijos { get; set; }
     }
+
+    public class MenuList
+    {
+        public int nIdMenu { get; set; }
+        public string nombreMenu { get; set; }
+        public string nombreRuta { get; set; }
+        public int? nMenuPadre { get; set; }
+        public string estado { get; set; }
+        public int posicionMenu { get; set; }
+    }
 }

@@ -55,5 +55,19 @@ namespace Backend.Ksbh.Repository.SqlServer.Authentication
 
             return lista.ToList();
         }
+
+        public async Task<IList<MenuList>> Get_MenuLista()
+        {
+            IEnumerable<MenuList> lista = new List<MenuList>();
+
+            string store = String.Format("{0};{1}", "Sistema.sp_Authenticado", (byte)3);
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("dbSistema")))
+            {
+                lista = await connection.QueryAsync<MenuList>(store, commandType: CommandType.StoredProcedure);
+            }
+
+            return lista.ToList();
+        }
     }
 }

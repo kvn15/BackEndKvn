@@ -16,6 +16,7 @@ namespace Backend.Ksbh.BusinessLogic.Authentication
         {
             _repository = repository;
         }
+
         public async Task<IList<MenuAuth>> Get_MenusHijos(int tipoUser, int padre)
         {
             return await _repository.Get_MenusHijos(tipoUser, padre);
@@ -24,6 +25,11 @@ namespace Backend.Ksbh.BusinessLogic.Authentication
         public async Task<IList<MenuAuth>> Get_MenusPadres(int tipoUser)
         {
             return await _repository.Get_MenusPadres(tipoUser);
+        }
+
+        public async Task<IList<MenuList>> Get_MenuLista()
+        {
+            return await _repository.Get_MenuLista();
         }
     }
 }
