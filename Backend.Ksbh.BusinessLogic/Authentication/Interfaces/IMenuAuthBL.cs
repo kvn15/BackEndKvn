@@ -11,5 +11,6 @@ namespace Backend.Ksbh.BusinessLogic.Authentication.Interfaces
     {
         Task<IList<MenuAuth>> Get_MenusPadres(int tipoUser);
         Task<IList<MenuAuth>> Get_MenusHijos(int tipoUser, int padre);
+        Task<IList<MenuList>> Get_MenuLista();
     }
 }

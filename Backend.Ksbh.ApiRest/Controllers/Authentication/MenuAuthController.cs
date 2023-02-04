@@ -110,6 +110,38 @@ namespace Backend.Ksbh.ApiRest.Controllers.Authentication
                 return StatusCode(500, response);
             }
         }
+        //Lista los Mneus Padres
+        [HttpGet("[action]")]
+        public async Task<ActionResult<WebApiResponse<MenuList>>> get_MenuLista()
+        {
+            WebApiResponse<MenuList> response = new WebApiResponse<MenuList>();
+            try
+            {
+
+                var lista = await _service.Get_MenuLista();
+
+                List<MenuList> data = (List<MenuList>)lista;
+
+                response.Success = true;
+                response.Response = new Response<MenuList>();
+                response.Response.Data = new List<MenuList>();
+                response.Response.Data = data;
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Errors = new List<Error>();
+                response.Errors.Add(new Error()
+                {
+                    Code = StatusCodes.Status500InternalServerError,
+                    Message = ex.Message
+                });
+
+                return StatusCode(500, response);
+            }
+        }
 
     }
 }
