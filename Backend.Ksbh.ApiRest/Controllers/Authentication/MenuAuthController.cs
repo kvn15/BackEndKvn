@@ -13,7 +13,7 @@ namespace Backend.Ksbh.ApiRest.Controllers.Authentication
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MenuAuthController : ControllerBase
     {
         private readonly IMenuAuthBL _service;
@@ -46,85 +46,18 @@ namespace Backend.Ksbh.ApiRest.Controllers.Authentication
 
                 List<MenuAuth> data = (List<MenuAuth>)lista;
 
-                response.Success = true;
-                response.Response = new Response<MenuAuth>();
-                response.Response.Data = new List<MenuAuth>();
-                response.Response.Data = data;
-
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.Errors = new List<Error>();
-                response.Errors.Add(new Error()
+                foreach (var item in data)
                 {
-                    Code = StatusCodes.Status500InternalServerError,
-                    Message = ex.Message
-                });
+                    var listaHijo = await _service.Get_MenusHijos(tipoUser, item.nIdMenu);
 
-                return StatusCode(500, response);
-            }
-        }
+                    List<MenuAuthHijo> list = (List<MenuAuthHijo>)listaHijo;
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<WebApiResponse<MenuAuth>>> get_menuAuthHijos(int tipoUser, int padre)
-        {
-            WebApiResponse<MenuAuth> response = new WebApiResponse<MenuAuth>();
-            try
-            {
-                if (String.IsNullOrEmpty(tipoUser.ToString()))
-                {
-                    response.Success = false;
-                    response.Errors = new List<Error>();
-                    response.Errors.Add(new Error()
-                    {
-                        Code = StatusCodes.Status404NotFound,
-                        Message = $"No se esta enviando el Tipo de Usuario"
-                    });
-
-                    return StatusCode(404, response);
+                    item.lHijoMenu = list;
                 }
 
-                var lista = await _service.Get_MenusHijos(tipoUser, padre);
-
-                List<MenuAuth> data = (List<MenuAuth>)lista;
-
                 response.Success = true;
                 response.Response = new Response<MenuAuth>();
                 response.Response.Data = new List<MenuAuth>();
-                response.Response.Data = data;
-
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.Errors = new List<Error>();
-                response.Errors.Add(new Error()
-                {
-                    Code = StatusCodes.Status500InternalServerError,
-                    Message = ex.Message
-                });
-
-                return StatusCode(500, response);
-            }
-        }
-        //Lista los Mneus Padres
-        [HttpGet("[action]")]
-        public async Task<ActionResult<WebApiResponse<MenuList>>> get_MenuLista()
-        {
-            WebApiResponse<MenuList> response = new WebApiResponse<MenuList>();
-            try
-            {
-
-                var lista = await _service.Get_MenuLista();
-
-                List<MenuList> data = (List<MenuList>)lista;
-
-                response.Success = true;
-                response.Response = new Response<MenuList>();
-                response.Response.Data = new List<MenuList>();
                 response.Response.Data = data;
 
                 return StatusCode(200, response);

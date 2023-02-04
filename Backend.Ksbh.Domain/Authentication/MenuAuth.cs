@@ -14,6 +14,17 @@ namespace Backend.Ksbh.Domain.Authentication
         public string sPath { get; set; }
         public int nMenuPadre { get; set; }
         public int totalHijos { get; set; }
+        public List<MenuAuthHijo> lHijoMenu { get; set; }
+    }
+
+    public class MenuAuthHijo
+    {
+        public int nIdMenu { get; set; }
+        public string sNomMenu { get; set; }
+        public string sAbreviado { get; set; }
+        public string sPath { get; set; }
+        public int nMenuPadre { get; set; }
+        public int totalHijos { get; set; }
     }
 
     public class MenuList
